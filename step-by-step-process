@@ -102,6 +102,12 @@ CREATING EXTERNAL TABLES IN HIVE:
       hive> load data local inpath 'file1' into table <tablename>; 
 ----------------------------------------------------------------
 
+
+
+SCHEMA:
+create external table wipro_ext(date_val string , symbol string, series string, prev_close float, opev_val float, high_val float, low_val float, last_val float, close_val float, VWAP float, volume int, turnover float, trades string, deliverable_vol string, deliverable_pert string)
+
+
 RESULTS FROM EXTERNAL DATA STORAGE (Dabases):
 
 drwxr-xr-x   -  supergroup          0 2020-10-10 12:54 ../hive/warehouse/used_case.db/axis_ext
@@ -118,4 +124,28 @@ hive> select * from wipro_ext limit 3;
 2000-01-03	WIPRO	EQ	2522.4	2724.0	2724.2	2724.0	2724.2	2724.2	2724.17	1599	4.35594199E11	null	null	null
 2000-01-04	WIPRO	EQ	2724.2	2942.15	2942.15	2942.15	2942.15	2942.15	2942.15	4392	1.29219232E12	null	null	null
 2000-01-05	WIPRO	EQ	2942.15	2942.15	3177.55	2715.0	3000.0	2990.1	3063.86	132297	4.0533896E13	null	null	null
+
+------------------------------------------------------------------------------------
+IMPORT SFTP csv files into the external HIVE tables, FINALLY all the tables table:
+
+Found 12 items
+drwxr-xr-x   - m supergroup          0 2020-10-10 12:54 /hive/warehouse/used_case.db/axis_ext
+drwxr-xr-x   - m supergroup          0 2020-10-10 12:55 /hive/warehouse/used_case.db/bpcl_ext
+drwxr-xr-x   - m supergroup          0 2020-10-10 12:56 /hive/warehouse/used_case.db/cipla_ext
+drwxr-xr-x   - m supergroup          0 2020-10-10 12:57 /hive/warehouse/used_case.db/coalindia_ext
+drwxr-xr-x   - m supergroup          0 2020-10-10 12:58 /hive/warehouse/used_case.db/grasim_ext
+drwxr-xr-x   - m supergroup          0 2020-10-10 12:59 /hive/warehouse/used_case.db/hdfc_ext
+drwxr-xr-x   - m supergroup          0 2020-10-10 13:00 /hive/warehouse/used_case.db/ntpc_ext
+drwxr-xr-x   - m supergroup          0 2020-10-10 12:53 /hive/warehouse/used_case.db/sbi_ext
+drwxr-xr-x   - m supergroup          0 2020-10-10 16:09 /hive/warehouse/used_case.db/tcs__ext_csv
+drwxr-xr-x   - m supergroup          0 2020-10-10 16:11 /hive/warehouse/used_case.db/techm__ext_csv
+drwxr-xr-x   - m supergroup          0 2020-10-10 13:00 /hive/warehouse/used_case.db/wipro_ext
+drwxr-xr-x   - m supergroup          0 2020-10-10 16:12 /hive/warehouse/used_case.db/zeel__ext_csv
+
+
+hive> describe formatted <tablename>;
+
+SerDe Library:      	org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe	 
+InputFormat:        	org.apache.hadoop.mapred.TextInputFormat	 
+OutputFormat:       	org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat	
 
