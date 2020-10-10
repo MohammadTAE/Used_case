@@ -80,4 +80,23 @@ drwxr-xr-x   - <username> supergroup          0 2020-10-09 11:55 /user/used_case
 drwxr-xr-x   - <username> supergroup          0 2020-10-09 11:51 /user/used_cases/sbin
 drwxr-xr-x   - <username> supergroup          0 2020-10-09 11:57 /user/used_cases/wipro
 
- 
+------------------------------------------------------------------------
+
+CREATING EXTERNAL TABLES IN HIVE:
+
+1) WORKING WITH HDFS file:
+   a) CREATE AN EXTENALE TABLE IN HIVE:
+      > start-all.sh (always start all the daemons first)  
+      > hive <enter> 
+      hive > creat database used_case_external;
+      hive > use used_case_external;
+      hive > create external table <tablename> (schema) 
+           > row format delimited
+           > fields terminated by ',';
+      (hdfs file:) 
+      hive> load data inpath 'HDFS filepath' into table tablename;
+      (LFS file:)
+      hive> load data inpath 'LFS filepath' into table tablename;
+2) WORKING WITH INTERNAL csv files:
+      hive> create external table <tablename> (schema)
+      hive> load data local inpath 'file1' into table <tablename>; 
