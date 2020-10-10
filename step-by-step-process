@@ -1,0 +1,83 @@
+To connect to my gcp account from my remote Ubuntu VM:
+create private and public key:
+ssh-keygen -t rsa -P ""
+
+install filezilla for sftp: 
+sudo apt update
+sudo apt install filezilla
+filezilla <enter>
+click edit --> Settings -> Select SFTP --> Add private key -> save --> ok
+check top -> Host (sftp://<gcp ip address>) Username: <username>
+(set No password  and no port)
+click Quickconnect
+
+Now in terminal:
+ftp mohammad@<gcp_ip_address> <enter>
+
+mget <filename>
+sftp> mget TCS.cvs
+File "/home/mohammad/TCS.cvs" not found.
+sftp> mget TCS.csv
+Fetching /home/mohammad/TCS.csv to TCS.csv
+/home/mohammad/TCS.csv                                              100%  456KB 369.2KB/s   00:01    
+sftp> mget ZEEL.csv
+Fetching /home/mohammad/ZEEL.csv to ZEEL.csv
+/home/mohammad/ZEEL.csv                                             100%  566KB 432.5KB/s   00:01    
+sftp> mget TECHM.csv
+Fetching /home/mohammad/TECHM.csv to TECHM.csv
+/home/mohammad/TECHM.csv                                            100%  389KB 256.7KB/s   00:01   
+
+----------------------------------------------------------------------------------
+
+Data ingestion from Three different databases:
+
+
+start-all.sh
+jps
+hdfs dfs -ls /user/
+hdfs dfs -makdir /user/<hdfs directory>
+
+
+1) Postgresql: SQOOP COMMAND
+
+ sqoop import \
+--connect 'jdbc:postgresql://localhost/postgres' \
+--username 'postgres' \
+--password '<password>' \
+--m 1 \
+--table <tablename> \
+--target-dir </hdfs directory/>
+
+2) MySql: SQOOP COMMAND
+
+sqoop import \
+--connect jdbc:mysql://localhost/<databasename> \
+--username root \
+--password <password> usually 'root' \
+--m 1 \
+--table <tablename> \
+--target-dir </hdfs directory/>
+
+3) SQL-Server: SQOOP COMMAND
+
+sqoop import \
+--connect 'jdbc:sqlserver://localhost;databasename=<databasename>' \
+--username 'SA' -P \
+--m 1 \
+--table <tablename> \
+--target-dir </hdfs directory/> 
+
+
+See the output using below command:
+hdfs dfs -ls </hdfs directory>
+drwxr-xr-x   - <username> supergroup          0 2020-10-09 11:02 /user/used_cases/axis
+drwxr-xr-x   - <username> supergroup          0 2020-10-09 11:09 /user/used_cases/bpcl
+drwxr-xr-x   - <username> supergroup          0 2020-10-09 11:06 /user/used_cases/cipla
+drwxr-xr-x   - <username> supergroup          0 2020-10-09 11:43 /user/used_cases/coalindia
+drwxr-xr-x   - <username> supergroup          0 2020-10-09 11:42 /user/used_cases/grasim
+drwxr-xr-x   - <username> supergroup          0 2020-10-09 11:36 /user/used_cases/hdfc
+drwxr-xr-x   - <username> supergroup          0 2020-10-09 11:55 /user/used_cases/ntpc
+drwxr-xr-x   - <username> supergroup          0 2020-10-09 11:51 /user/used_cases/sbin
+drwxr-xr-x   - <username> supergroup          0 2020-10-09 11:57 /user/used_cases/wipro
+
+ 
