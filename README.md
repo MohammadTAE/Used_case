@@ -23,8 +23,7 @@ The data is the price history and trading volumes of the 12 stocks in the index 
 | Trades             | text   | YES  |     | NULL    |       |
 | Deliverable Volume | text   | YES  |     | NULL    |       |
 | %Deliverble        | text   | YES  |     | NULL    |       |
-+--------------------+--------+------+-----+---------+-------+
-
++--------------------+--------+------+-----+---------+-------
 
 Motivation: 
 Stock market data is extensively analysed for business purpose. Various machine learning techniques can be applied and explored to stock market data, especially for trading algorithms and learning time series models.
