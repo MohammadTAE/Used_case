@@ -67,16 +67,18 @@ sqoop import \
 
 
 See the output using below command:
-hdfs dfs -ls </hdfs directory>
-drwxr-xr-x   - <username> supergroup          0 2020-10-09 11:02 /user/used_cases/axis
-drwxr-xr-x   - <username> supergroup          0 2020-10-09 11:09 /user/used_cases/bpcl
-drwxr-xr-x   - <username> supergroup          0 2020-10-09 11:06 /user/used_cases/cipla
-drwxr-xr-x   - <username> supergroup          0 2020-10-09 11:43 /user/used_cases/coalindia
-drwxr-xr-x   - <username> supergroup          0 2020-10-09 11:42 /user/used_cases/grasim
-drwxr-xr-x   - <username> supergroup          0 2020-10-09 11:36 /user/used_cases/hdfc
-drwxr-xr-x   - <username> supergroup          0 2020-10-09 11:55 /user/used_cases/ntpc
-drwxr-xr-x   - <username> supergroup          0 2020-10-09 11:51 /user/used_cases/sbin
-drwxr-xr-x   - <username> supergroup          0 2020-10-09 11:57 /user/used_cases/wipro
+hdfs dfs -ls /user/used_cases/output
+20/10/12 19:49:57 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Found 9 items
+drwxr-xr-x   - mohammad supergroup          0 2020-10-10 12:54 /user/used_cases/output/axis
+drwxr-xr-x   - mohammad supergroup          0 2020-10-10 12:55 /user/used_cases/output/bpcl
+drwxr-xr-x   - mohammad supergroup          0 2020-10-10 12:56 /user/used_cases/output/cipla
+drwxr-xr-x   - mohammad supergroup          0 2020-10-10 12:57 /user/used_cases/output/coalindia
+drwxr-xr-x   - mohammad supergroup          0 2020-10-10 12:58 /user/used_cases/output/grasim
+drwxr-xr-x   - mohammad supergroup          0 2020-10-10 12:59 /user/used_cases/output/hdfc
+drwxr-xr-x   - mohammad supergroup          0 2020-10-10 13:00 /user/used_cases/output/ntpc
+drwxr-xr-x   - mohammad supergroup          0 2020-10-10 12:53 /user/used_cases/output/sbin
+drwxr-xr-x   - mohammad supergroup          0 2020-10-10 13:00 /user/used_cases/output/wipro
 
 ------------------------------------------------------------------------
 
@@ -108,15 +110,21 @@ create external table wipro_ext(date_val string , symbol string, series string, 
 
 RESULTS FROM EXTERNAL DATA STORAGE (Dabases):
 
-drwxr-xr-x   -  supergroup          0 2020-10-10 12:54 ../hive/warehouse/used_case.db/axis_ext
-drwxr-xr-x   -  supergroup          0 2020-10-10 12:55 ../hive/warehouse/used_case.db/bpcl_ext
-drwxr-xr-x   -  supergroup          0 2020-10-10 12:56 ../hive/warehouse/used_case.db/cipla_ext
-drwxr-xr-x   -  supergroup          0 2020-10-10 12:57 ../hive/warehouse/used_case.db/coalindia_ext
-drwxr-xr-x   -  supergroup          0 2020-10-10 12:58 ../hive/warehouse/used_case.db/grasim_ext
-drwxr-xr-x   -  supergroup          0 2020-10-10 12:59 ../hive/warehouse/used_case.db/hdfc_ext
-drwxr-xr-x   -  supergroup          0 2020-10-10 13:00 ../hive/warehouse/used_case.db/ntpc_ext
-drwxr-xr-x   -  supergroup          0 2020-10-10 12:53 ../hive/warehouse/used_case.db/sbi_ext
-drwxr-xr-x   - mohamm.. supergroup          0 2020-10-10 13:00 ../hive/warehouse/used_case.db/wipro_ext
+mohammad@mohammad:~$ hdfs dfs -ls /user/hive/warehouse/used_case.db
+20/10/12 19:51:42 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Found 12 items
+drwxr-xr-x   - mohammad supergroup          0 2020-10-10 12:54 /user/hive/warehouse/used_case.db/axis_ext
+drwxr-xr-x   - mohammad supergroup          0 2020-10-10 12:55 /user/hive/warehouse/used_case.db/bpcl_ext
+drwxr-xr-x   - mohammad supergroup          0 2020-10-10 12:56 /user/hive/warehouse/used_case.db/cipla_ext
+drwxr-xr-x   - mohammad supergroup          0 2020-10-10 12:57 /user/hive/warehouse/used_case.db/coalindia_ext
+drwxr-xr-x   - mohammad supergroup          0 2020-10-10 12:58 /user/hive/warehouse/used_case.db/grasim_ext
+drwxr-xr-x   - mohammad supergroup          0 2020-10-10 12:59 /user/hive/warehouse/used_case.db/hdfc_ext
+drwxr-xr-x   - mohammad supergroup          0 2020-10-10 13:00 /user/hive/warehouse/used_case.db/ntpc_ext
+drwxr-xr-x   - mohammad supergroup          0 2020-10-10 12:53 /user/hive/warehouse/used_case.db/sbi_ext
+drwxr-xr-x   - mohammad supergroup          0 2020-10-10 16:09 /user/hive/warehouse/used_case.db/tcs__ext_csv
+drwxr-xr-x   - mohammad supergroup          0 2020-10-10 16:11 /user/hive/warehouse/used_case.db/techm__ext_csv
+drwxr-xr-x   - mohammad supergroup          0 2020-10-10 13:00 /user/hive/warehouse/used_case.db/wipro_ext
+drwxr-xr-x   - mohammad supergroup          0 2020-10-10 16:12 /user/hive/warehouse/used_case.db/zeel__ext_csv
 
 hive> select * from wipro_ext limit 3;
 2000-01-03	WIPRO	EQ	2522.4	2724.0	2724.2	2724.0	2724.2	2724.2	2724.17	1599	4.35594199E11	null	null	null
@@ -124,22 +132,6 @@ hive> select * from wipro_ext limit 3;
 2000-01-05	WIPRO	EQ	2942.15	2942.15	3177.55	2715.0	3000.0	2990.1	3063.86	132297	4.0533896E13	null	null	null
 
 ------------------------------------------------------------------------------------
-IMPORT SFTP csv files into the external HIVE tables, FINALLY all the tables table:
-
-Found 12 items
-drwxr-xr-x   - m supergroup          0 2020-10-10 12:54 /hive/warehouse/used_case.db/axis_ext
-drwxr-xr-x   - m supergroup          0 2020-10-10 12:55 /hive/warehouse/used_case.db/bpcl_ext
-drwxr-xr-x   - m supergroup          0 2020-10-10 12:56 /hive/warehouse/used_case.db/cipla_ext
-drwxr-xr-x   - m supergroup          0 2020-10-10 12:57 /hive/warehouse/used_case.db/coalindia_ext
-drwxr-xr-x   - m supergroup          0 2020-10-10 12:58 /hive/warehouse/used_case.db/grasim_ext
-drwxr-xr-x   - m supergroup          0 2020-10-10 12:59 /hive/warehouse/used_case.db/hdfc_ext
-drwxr-xr-x   - m supergroup          0 2020-10-10 13:00 /hive/warehouse/used_case.db/ntpc_ext
-drwxr-xr-x   - m supergroup          0 2020-10-10 12:53 /hive/warehouse/used_case.db/sbi_ext
-drwxr-xr-x   - m supergroup          0 2020-10-10 16:09 /hive/warehouse/used_case.db/tcs__ext_csv
-drwxr-xr-x   - m supergroup          0 2020-10-10 16:11 /hive/warehouse/used_case.db/techm__ext_csv
-drwxr-xr-x   - m supergroup          0 2020-10-10 13:00 /hive/warehouse/used_case.db/wipro_ext
-drwxr-xr-x   - m supergroup          0 2020-10-10 16:12 /hive/warehouse/used_case.db/zeel__ext_csv
-
 
 List of external tables:
 hive> show tables;
