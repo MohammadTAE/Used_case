@@ -157,6 +157,23 @@ techm__ext_csv
 wipro_ext
 zeel__ext_csv
 
+
+# Detailed Table Information	 	 
+Database:           	used_case           	 
+Owner:              	mohammad            	 
+CreateTime:         	Sat Oct 10 12:54:29 BST 2020	 
+LastAccessTime:     	UNKNOWN             	 
+Retention:          	0                   	 
+Location:           	hdfs://localhost:9000/user/hive/warehouse/used_case.db/axis_ext	 
+Table Type:         	EXTERNAL_TABLE      	 
+Table Parameters:	 	 
+	EXTERNAL            	TRUE                
+	numFiles            	1                   
+	numRows             	0                   
+	rawDataSize         	0                   
+	totalSize           	589019              
+	transient_lastDdlTime	1602330898         
+
 ------------------------------------------------INTERNAL TABLES IN HIVE-------------------------------------
 hive> create table axis_int(date_val string , symbol string, series string, prev_close float, opev_val float, high_val float, low_val float, last_val float, close_val float, VWAP float, volume int, turnover float, trades string, deliverable_vol string, deliverable_pert string);
 OK
