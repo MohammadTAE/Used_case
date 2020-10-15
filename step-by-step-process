@@ -91,13 +91,12 @@ CREATING EXTERNAL TABLES IN HIVE:
       hive > creat database used_case_external;
       hive > use used_case_external;
       hive > create external table <tablename> (schema) 
-           > row format delimited
-           > fields terminated by ',';
+           > row format delimited fields terminated by ',';
       (hdfs file:) 
       hive> load data inpath 'HDFS filepath' into table tablename;
       (LFS file:)
       hive> load data inpath 'LFS filepath' into table tablename;
-2) WORKING WITH INTERNAL csv files:
+2) WORKING WITH LFS csv files:
       hive> create external table <tablename> (schema)
       hive> load data local inpath 'file1' into table <tablename>; 
 ----------------------------------------------------------------
@@ -105,58 +104,58 @@ CREATING EXTERNAL TABLES IN HIVE:
 
 
 SCHEMA:
-create external table wipro_ext(date_val string , symbol string, series string, prev_close float, opev_val float, high_val float, low_val float, last_val float, close_val float, VWAP float, volume int, turnover float, trades string, deliverable_vol string, deliverable_pert string)
+hive> create external table axis_ext(date_val string , symbol string, 
+series string, prev_close float, opev_val float, high_val float, low_val float, 
+last_val float, close_val float, VWAP float, volume int, 
+turnover float, trades string, deliverable_vol string, deliverable_pert string)
+  > row format delimited fields terminated by ',';
 
 
 RESULTS FROM EXTERNAL DATA STORAGE (Dabases):
-
-mohammad@mohammad:~$ hdfs dfs -ls /user/hive/warehouse/used_case.db
-20/10/12 19:51:42 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+mohammad@mohammad:~$ hdfs dfs -ls /user/hive/warehouse/dsl_prj1_ext.db
+20/10/15 09:39:40 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
 Found 12 items
-drwxr-xr-x   - mohammad supergroup          0 2020-10-10 12:54 /user/hive/warehouse/used_case.db/axis_ext
-drwxr-xr-x   - mohammad supergroup          0 2020-10-10 12:55 /user/hive/warehouse/used_case.db/bpcl_ext
-drwxr-xr-x   - mohammad supergroup          0 2020-10-10 12:56 /user/hive/warehouse/used_case.db/cipla_ext
-drwxr-xr-x   - mohammad supergroup          0 2020-10-10 12:57 /user/hive/warehouse/used_case.db/coalindia_ext
-drwxr-xr-x   - mohammad supergroup          0 2020-10-10 12:58 /user/hive/warehouse/used_case.db/grasim_ext
-drwxr-xr-x   - mohammad supergroup          0 2020-10-10 12:59 /user/hive/warehouse/used_case.db/hdfc_ext
-drwxr-xr-x   - mohammad supergroup          0 2020-10-10 13:00 /user/hive/warehouse/used_case.db/ntpc_ext
-drwxr-xr-x   - mohammad supergroup          0 2020-10-10 12:53 /user/hive/warehouse/used_case.db/sbi_ext
-drwxr-xr-x   - mohammad supergroup          0 2020-10-10 16:09 /user/hive/warehouse/used_case.db/tcs__ext_csv
-drwxr-xr-x   - mohammad supergroup          0 2020-10-10 16:11 /user/hive/warehouse/used_case.db/techm__ext_csv
-drwxr-xr-x   - mohammad supergroup          0 2020-10-10 13:00 /user/hive/warehouse/used_case.db/wipro_ext
-drwxr-xr-x   - mohammad supergroup          0 2020-10-10 16:12 /user/hive/warehouse/used_case.db/zeel__ext_csv
+drwxr-xr-x   - mohammad supergroup          0 2020-10-15 08:59 /user/hive/warehouse/dsl_prj1_ext.db/axis_ext
+drwxr-xr-x   - mohammad supergroup          0 2020-10-15 08:59 /user/hive/warehouse/dsl_prj1_ext.db/bpcl_ext
+drwxr-xr-x   - mohammad supergroup          0 2020-10-15 08:58 /user/hive/warehouse/dsl_prj1_ext.db/cipla_ext
+drwxr-xr-x   - mohammad supergroup          0 2020-10-15 08:57 /user/hive/warehouse/dsl_prj1_ext.db/coalindia_ext
+drwxr-xr-x   - mohammad supergroup          0 2020-10-15 08:56 /user/hive/warehouse/dsl_prj1_ext.db/grasim_ext
+drwxr-xr-x   - mohammad supergroup          0 2020-10-15 08:55 /user/hive/warehouse/dsl_prj1_ext.db/hdfc_ext
+drwxr-xr-x   - mohammad supergroup          0 2020-10-15 08:54 /user/hive/warehouse/dsl_prj1_ext.db/ntpc_ext
+drwxr-xr-x   - mohammad supergroup          0 2020-10-15 08:54 /user/hive/warehouse/dsl_prj1_ext.db/sbin_ext
+drwxr-xr-x   - mohammad supergroup          0 2020-10-15 09:05 /user/hive/warehouse/dsl_prj1_ext.db/tcs_csv_ext
+drwxr-xr-x   - mohammad supergroup          0 2020-10-15 09:06 /user/hive/warehouse/dsl_prj1_ext.db/techm_csv_ext
+drwxr-xr-x   - mohammad supergroup          0 2020-10-15 08:52 /user/hive/warehouse/dsl_prj1_ext.db/wipro_ext
+drwxr-xr-x   - mohammad supergroup          0 2020-10-15 09:07 /user/hive/warehouse/dsl_prj1_ext.db/zeel_csv_ext
 
-hive> select * from wipro_ext limit 3;
-2000-01-03	WIPRO	EQ	2522.4	2724.0	2724.2	2724.0	2724.2	2724.2	2724.17	1599	4.35594199E11	null	null	null
-2000-01-04	WIPRO	EQ	2724.2	2942.15	2942.15	2942.15	2942.15	2942.15	2942.15	4392	1.29219232E12	null	null	null
-2000-01-05	WIPRO	EQ	2942.15	2942.15	3177.55	2715.0	3000.0	2990.1	3063.86	132297	4.0533896E13	null	null	null
 
-------------------------------------------------------------------------------------
-
-List of external tables:
-hive> show tables;
+hive> describe formatted axis_ext;
 OK
-axis_ext
-bpcl_ext
-cipla_ext
-coalindia_ext
-grasim_ext
-hdfc_ext
-ntpc_ext
-sbi_ext
-tcs__ext_csv
-techm__ext_csv
-wipro_ext
-zeel__ext_csv
-
-
+# col_name            	data_type           	comment             
+	 	 
+date_val            	string              	                    
+symbol              	string              	                    
+series              	string              	                    
+prev_close          	float               	                    
+opev_val            	float               	                    
+high_val            	float               	                    
+low_val             	float               	                    
+last_val            	float               	                    
+close_val           	float               	                    
+vwap                	float               	                    
+volume              	int                 	                    
+turnover            	float               	                    
+trades              	string              	                    
+deliverable_vol     	string              	                    
+deliverable_pert    	string              	                    
+	 	 
 # Detailed Table Information	 	 
-Database:           	used_case           	 
+Database:           	dsl_prj1_ext        	 
 Owner:              	mohammad            	 
-CreateTime:         	Sat Oct 10 12:54:29 BST 2020	 
+CreateTime:         	Thu Oct 15 08:59:44 BST 2020	 
 LastAccessTime:     	UNKNOWN             	 
 Retention:          	0                   	 
-Location:           	hdfs://localhost:9000/user/hive/warehouse/used_case.db/axis_ext	 
+Location:           	hdfs://localhost:9000/user/hive/warehouse/dsl_prj1_ext.db/axis_ext	 
 Table Type:         	EXTERNAL_TABLE      	 
 Table Parameters:	 	 
 	EXTERNAL            	TRUE                
@@ -164,7 +163,13 @@ Table Parameters:
 	numRows             	0                   
 	rawDataSize         	0                   
 	totalSize           	589019              
-	transient_lastDdlTime	1602330898         
+	transient_lastDdlTime	1602748799          
+	 	 
+# Storage Information	 	 
+SerDe Library:      	org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe	 
+InputFormat:        	org.apache.hadoop.mapred.TextInputFormat	 
+OutputFormat:       	org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat	
+
 
 ------------------------------------------------INTERNAL TABLES IN HIVE-------------------------------------
 hive> create table axis_int(date_val string , symbol string, series string, prev_close float, opev_val float, high_val float, low_val float, last_val float, close_val float, VWAP float, volume int, turnover float, trades string, deliverable_vol string, deliverable_pert string);
@@ -174,29 +179,53 @@ Time taken: 0.288 seconds
 hive> insert overwrite table axis_int select * from used_case.axis_ext;
 
 Repeat the same for other tables 11 tables.
-Finally I got:
-hive> show tables;
-OK
-axis_int
-bpcl_int
-cipla_int
-coalindia_int
-grasim_int
-hdfc_int
-ntpc_int
-sbi_int
-tcs__int_csv
-techm__int_csv
-wipro_int
-zeel__int_csv
 
+mohammad@mohammad:~$ hdfs dfs -ls /user/hive/warehouse/dsl_prj1_int.db
+20/10/15 09:39:23 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Found 12 items
+drwxr-xr-x   - mohammad supergroup          0 2020-10-15 09:37 /user/hive/warehouse/dsl_prj1_int.db/axis_int
+drwxr-xr-x   - mohammad supergroup          0 2020-10-15 09:36 /user/hive/warehouse/dsl_prj1_int.db/bpcl_int
+drwxr-xr-x   - mohammad supergroup          0 2020-10-15 09:35 /user/hive/warehouse/dsl_prj1_int.db/cipla_int
+drwxr-xr-x   - mohammad supergroup          0 2020-10-15 09:34 /user/hive/warehouse/dsl_prj1_int.db/coalindia_int
+drwxr-xr-x   - mohammad supergroup          0 2020-10-15 09:32 /user/hive/warehouse/dsl_prj1_int.db/grasim_int
+drwxr-xr-x   - mohammad supergroup          0 2020-10-15 09:31 /user/hive/warehouse/dsl_prj1_int.db/hdfc_int
+drwxr-xr-x   - mohammad supergroup          0 2020-10-15 09:30 /user/hive/warehouse/dsl_prj1_int.db/ntpc_int
+drwxr-xr-x   - mohammad supergroup          0 2020-10-15 09:28 /user/hive/warehouse/dsl_prj1_int.db/sbin_int
+drwxr-xr-x   - mohammad supergroup          0 2020-10-15 09:27 /user/hive/warehouse/dsl_prj1_int.db/tcs_csv_int
+drwxr-xr-x   - mohammad supergroup          0 2020-10-15 09:25 /user/hive/warehouse/dsl_prj1_int.db/techm_csv_int
+drwxr-xr-x   - mohammad supergroup          0 2020-10-15 09:24 /user/hive/warehouse/dsl_prj1_int.db/wipro_int
+drwxr-xr-x   - mohammad supergroup          0 2020-10-15 09:21 /user/hive/warehouse/dsl_prj1_int.db/zeel_csv_int
+
+
+# Detailed Table Information	 	
+---------------------------------------------------------------- 
+hive> describe formatted  axis_int;
+OK
+# col_name            	data_type           	comment             
+	 	 
+date_val            	string              	                    
+symbol              	string              	                    
+series              	string              	                    
+prev_close          	float               	                    
+opev_val            	float               	                    
+high_val            	float               	                    
+low_val             	float               	                    
+last_val            	float               	                    
+close_val           	float               	                    
+vwap                	float               	                    
+volume              	int                 	                    
+turnover            	float               	                    
+trades              	string              	                    
+deliverable_vol     	string              	                    
+deliverable_pert    	string              	                    
+	 	 
 # Detailed Table Information	 	 
-Database:           	usecase_internal    	 
+Database:           	dsl_prj1_int        	 
 Owner:              	mohammad            	 
-CreateTime:         	Mon Oct 12 15:56:33 BST 2020	 
+CreateTime:         	Thu Oct 15 09:36:57 BST 2020	 
 LastAccessTime:     	UNKNOWN             	 
 Retention:          	0                   	 
-Location:           	hdfs://localhost:9000/user/hive/warehouse/usecase_internal.db/axis_int	 
+Location:           	hdfs://localhost:9000/user/hive/warehouse/dsl_prj1_int.db/axis_int	 
 Table Type:         	MANAGED_TABLE       	 
 Table Parameters:	 	 
 	COLUMN_STATS_ACCURATE	{\"BASIC_STATS\":\"true\"}
@@ -204,7 +233,23 @@ Table Parameters:
 	numRows             	5163                
 	rawDataSize         	569395              
 	totalSize           	574558              
-	transient_lastDdlTime	1602514656          
+	transient_lastDdlTime	1602751064          
+
+---------------------------------------------------CHECK RAW data hdfs director---------
+mohammad@mohammad:~$ hdfs dfs -ls /user/hdfs
+20/10/15 09:53:23 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Found 1 items
+drwxr-xr-x   - mohammad supergroup          0 2020-10-15 08:17 /user/hdfs/RAW_project1
+
+-------------------------------------CHECK DSL data hive directory---------------------------------------
+mohammad@mohammad:~$ hdfs dfs -ls /user/hive/warehouse/
+20/10/15 09:52:52 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Found 2 items
+drwxr-xr-x   - mohammad supergroup          0 2020-10-15 09:06 /user/hive/warehouse/dsl_prj1_ext.db
+drwxr-xr-x   - mohammad supergroup          0 2020-10-15 09:39 /user/hive/warehouse/dsl_prj1_int.db
 
 
 
+
+------------------------------------------------------DROP database command-------------------------
+drop database if exists <databasename> cascade;
