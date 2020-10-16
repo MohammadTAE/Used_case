@@ -249,6 +249,75 @@ drwxr-xr-x   - mohammad supergroup          0 2020-10-15 09:06 /user/hive/wareho
 drwxr-xr-x   - mohammad supergroup          0 2020-10-15 09:39 /user/hive/warehouse/dsl_prj1_int.db
 
 
+----------------------------------Integration of HIVE and HBASE-------------------------------
+
+create database hbase_prj1_dsl_int;
+hive> use hbase_proj1_dsl_int;
+
+hive> create table axis_hbase(date_val string, symbol string, series string, prev_close float, 
+open_val float, high_val float, low_val float, last_val float, close_val float, VWAP float, 
+volume int, turnover float, trades string, deliverable_vol string, 
+deliverable_part string)stored by 'org.apache.hadoop.hive.hbase.HBaseStorageHandler' 
+with serdeproperties("hbase.columns.mapping"=":key, cf:sybmol,cf:series,cf:prev_close,cf:open_val, 
+cf:high_val, cf:low_val, cf:last_val, cf:close_val, cf:VWAP, cf:volume, cf:turnover, 
+cf:trades, cf:deliverable_vol, cf:deliverable_pert") tblproperties("hbase.table.name"="dsl_axis")
+
+hive> insert into table axis_hbase select * from dsl_prj1_int.axis_int
+
+LIST OF INTEGRATED TABLES FOR HBASE:
+------------------------------------
+hive> show tables
+    > ;
+OK
+axis_hbase
+bpcl_hbase
+cipla_hbase
+coalindia_hbase
+grasim_hbase
+hdfc_hbase
+ntpc_hbase
+sbin_hbase
+tcs_csv_hbase
+techm_csv_hbase
+wipro_hbase
+zeel_csv_hbase
+
+hive> select * from axis_hbase limit 1;
+OK
+2000-01-03      UTIBANK EQ      24.7    26.7    26.7    26.7    26.7    26.7    26.7    112100  2.99307008E11
+
+-----------------------------------LIST OF CORRESPONDING HBASE TABLES:-----------------------------
+hbase(main):012:0> list
+TABLE                                                                                      
+dsl_axis                                                                                   
+dsl_bpcl                                                                                   
+dsl_cipla                                                                                  
+dsl_coalindia                                                                              
+dsl_grasim                                                                                 
+dsl_hdfc                                                                                   
+dsl_ntpc                                                                                   
+dsl_sbin                                                                                   
+dsl_tcs_csv                                                                                
+dsl_techm_csv                                                                              
+dsl_wipro                                                                                  
+dsl_zeel_csv          
+
+hbase(main):013:0> scan 'dsl_axis' , {LIMIT => 1}
+ROW                     COLUMN+CELL                                                        
+ 2000-01-03             column=cf:VWAP, timestamp=1602828021757, value=26.7                
+ 2000-01-03             column=cf:close_val, timestamp=1602828021757, value=26.7           
+ 2000-01-03             column=cf:deliverable_pert, timestamp=1602828021757, value=        
+ 2000-01-03             column=cf:deliverable_vol, timestamp=1602828021757, value=         
+ 2000-01-03             column=cf:high_val, timestamp=1602828021757, value=26.7            
+ 2000-01-03             column=cf:last_val, timestamp=1602828021757, value=26.7            
+ 2000-01-03             column=cf:low_val, timestamp=1602828021757, value=26.7             
+ 2000-01-03             column=cf:open_val, timestamp=1602828021757, value=26.7            
+ 2000-01-03             column=cf:prev_close, timestamp=1602828021757, value=24.7          
+ 2000-01-03             column=cf:series, timestamp=1602828021757, value=EQ                
+ 2000-01-03             column=cf:sybmol, timestamp=1602828021757, value=UTIBANK           
+ 2000-01-03             column=cf:trades, timestamp=1602828021757, value=                  
+ 2000-01-03             column=cf:turnover, timestamp=1602828021757, value=2.99307008E11   
+ 2000-01-03             column=cf:volume, timestamp=1602828021757, value=112100          
 
 
 ------------------------------------------------------DROP database command-------------------------
