@@ -109,27 +109,34 @@ series string, prev_close float, opev_val float, high_val float, low_val float,
 last_val float, close_val float, VWAP float, volume int, 
 turnover float, trades string, deliverable_vol string, deliverable_pert string)
   > row format delimited fields terminated by ',';
+  > LOCATION '/user/hive/warehouse/raw_prj1_ext/zeel_csv/zeel_csv_ext';
 
+from local LFS:
+ > load data local inpath '/home/mohammad/project1_DA_Sqoop_sftp/sftp_files_gcp/TECHM.csv' into table techm_csv_ext;
+
+from hdfs directory: 
+---
+> load data inpath '/user/hdfs/RAW_project1/wipro' into table wipro_ext;
 
 RESULTS FROM EXTERNAL DATA STORAGE (Dabases):
-mohammad@mohammad:~$ hdfs dfs -ls /user/hive/warehouse/dsl_prj1_ext.db
-20/10/15 09:39:40 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+mohammad@mohammad:~/project1_DA_Sqoop_sftp/sqlserver-sqoop$ hdfs dfs -ls /user/hive/warehouse/raw_prj1_ext
+20/10/19 21:10:19 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
 Found 12 items
-drwxr-xr-x   - mohammad supergroup          0 2020-10-15 08:59 /user/hive/warehouse/dsl_prj1_ext.db/axis_ext
-drwxr-xr-x   - mohammad supergroup          0 2020-10-15 08:59 /user/hive/warehouse/dsl_prj1_ext.db/bpcl_ext
-drwxr-xr-x   - mohammad supergroup          0 2020-10-15 08:58 /user/hive/warehouse/dsl_prj1_ext.db/cipla_ext
-drwxr-xr-x   - mohammad supergroup          0 2020-10-15 08:57 /user/hive/warehouse/dsl_prj1_ext.db/coalindia_ext
-drwxr-xr-x   - mohammad supergroup          0 2020-10-15 08:56 /user/hive/warehouse/dsl_prj1_ext.db/grasim_ext
-drwxr-xr-x   - mohammad supergroup          0 2020-10-15 08:55 /user/hive/warehouse/dsl_prj1_ext.db/hdfc_ext
-drwxr-xr-x   - mohammad supergroup          0 2020-10-15 08:54 /user/hive/warehouse/dsl_prj1_ext.db/ntpc_ext
-drwxr-xr-x   - mohammad supergroup          0 2020-10-15 08:54 /user/hive/warehouse/dsl_prj1_ext.db/sbin_ext
-drwxr-xr-x   - mohammad supergroup          0 2020-10-15 09:05 /user/hive/warehouse/dsl_prj1_ext.db/tcs_csv_ext
-drwxr-xr-x   - mohammad supergroup          0 2020-10-15 09:06 /user/hive/warehouse/dsl_prj1_ext.db/techm_csv_ext
-drwxr-xr-x   - mohammad supergroup          0 2020-10-15 08:52 /user/hive/warehouse/dsl_prj1_ext.db/wipro_ext
-drwxr-xr-x   - mohammad supergroup          0 2020-10-15 09:07 /user/hive/warehouse/dsl_prj1_ext.db/zeel_csv_ext
+drwxr-xr-x   - mohammad supergroup          0 2020-10-19 20:06 /user/hive/warehouse/raw_prj1_ext/axis
+drwxr-xr-x   - mohammad supergroup          0 2020-10-19 20:04 /user/hive/warehouse/raw_prj1_ext/bpcl
+drwxr-xr-x   - mohammad supergroup          0 2020-10-19 20:15 /user/hive/warehouse/raw_prj1_ext/cipla
+drwxr-xr-x   - mohammad supergroup          0 2020-10-19 20:23 /user/hive/warehouse/raw_prj1_ext/coalindia
+drwxr-xr-x   - mohammad supergroup          0 2020-10-19 20:26 /user/hive/warehouse/raw_prj1_ext/grasim
+drwxr-xr-x   - mohammad supergroup          0 2020-10-19 20:32 /user/hive/warehouse/raw_prj1_ext/hdfc
+drwxr-xr-x   - mohammad supergroup          0 2020-10-19 20:35 /user/hive/warehouse/raw_prj1_ext/ntpc
+drwxr-xr-x   - mohammad supergroup          0 2020-10-19 20:38 /user/hive/warehouse/raw_prj1_ext/sbin
+drwxr-xr-x   - mohammad supergroup          0 2020-10-19 20:46 /user/hive/warehouse/raw_prj1_ext/tcs_csv
+drwxr-xr-x   - mohammad supergroup          0 2020-10-19 20:50 /user/hive/warehouse/raw_prj1_ext/techm_csv
+drwxr-xr-x   - mohammad supergroup          0 2020-10-19 20:42 /user/hive/warehouse/raw_prj1_ext/wipro
+drwxr-xr-x   - mohammad supergroup          0 2020-10-19 20:51 /user/hive/warehouse/raw_prj1_ext/zeel_csv
 
 
-hive> describe formatted axis_ext;
+hive> desc formatted axis_ext;
 OK
 # col_name            	data_type           	comment             
 	 	 
@@ -152,23 +159,28 @@ deliverable_pert    	string
 # Detailed Table Information	 	 
 Database:           	dsl_prj1_ext        	 
 Owner:              	mohammad            	 
-CreateTime:         	Thu Oct 15 08:59:44 BST 2020	 
+CreateTime:         	Mon Oct 19 20:06:36 BST 2020	 
 LastAccessTime:     	UNKNOWN             	 
 Retention:          	0                   	 
-Location:           	hdfs://localhost:9000/user/hive/warehouse/dsl_prj1_ext.db/axis_ext	 
+Location:           	hdfs://localhost:9000/user/hive/warehouse/raw_prj1_ext/axis/axis_ext	 
 Table Type:         	EXTERNAL_TABLE      	 
 Table Parameters:	 	 
 	EXTERNAL            	TRUE                
 	numFiles            	1                   
-	numRows             	0                   
-	rawDataSize         	0                   
 	totalSize           	589019              
-	transient_lastDdlTime	1602748799          
+	transient_lastDdlTime	1603134675          
 	 	 
 # Storage Information	 	 
 SerDe Library:      	org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe	 
 InputFormat:        	org.apache.hadoop.mapred.TextInputFormat	 
-OutputFormat:       	org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat	
+OutputFormat:       	org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat	 
+Compressed:         	No                  	 
+Num Buckets:        	-1                  	 
+Bucket Columns:     	[]                  	 
+Sort Columns:       	[]                  	 
+Storage Desc Params:	 	 
+	field.delim         	,                   
+	serialization.format	,                   
 
 
 ------------------------------------------------INTERNAL TABLES IN HIVE-------------------------------------
